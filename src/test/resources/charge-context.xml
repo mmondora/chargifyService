@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012.  Mondora srl, Mondora suisse
+  ~ and individual contributors as indicated by the @authors tag.
+  ~ See the copyright.txt in the distribution for a full listing of individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU Lesser General Public License as published by the Free Software Foundation; either
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+  ~ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ~ See the GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License along with this
+  ~ software; if not see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!-- change the alias name to switch from 'fullmock' to 'integration' or other beans -->
+    <!--<alias name="fullmock" alias="charge"/>-->
+    <alias name="fullmock" alias="charge"/>
+
+    <bean id="integration" class="com.mondora.chargify.controller.ChargifyAdapter">
+        <constructor-arg>
+            <description>key</description>
+            <value>INSERT YOUR KEY</value>
+        </constructor-arg>
+        <constructor-arg>
+            <description>domain</description>
+            <value>INSERT YOUR DOMAIN</value>
+        </constructor-arg>
+    </bean>
+    <bean id="fullmock" class="com.mondora.chargify.mock.ChargifyFullMock">
+        <property name="domain">
+            <value>mockDomain</value>
+        </property>
+    </bean>
+    <bean id="failingChargify" class="com.mondora.chargify.mock.FailingChargify">
+        <property name="domain">
+            <value>mockdomain</value>
+        </property>
+    </bean>
+    <bean id="productmock" class="com.mondora.chargify.mock.ChargifyProductListMock">
+        <property name="domain">
+            <value>mockdomain</value>
+        </property>
+    </bean>
+    <bean id="subscriptionlistmock" class="com.mondora.chargify.mock.ChargifySubscriptionListMock">
+        <property name="domain">
+            <value>mockdomain</value>
+        </property>
+    </bean>
+
+    <!-- Sense ChargifyAdapter injection -->
+    <bean id="failing" class="com.mondora.chargify.ChargifyService">
+        <property name="chargify">
+            <ref bean="failingChargify"/>
+        </property>
+    </bean>
+
+    <bean id="chargifyService" class="com.mondora.chargify.ChargifyService">
+        <property name="chargify">
+            <ref bean="charge"/>
+        </property>
+    </bean>
+
+</beans>

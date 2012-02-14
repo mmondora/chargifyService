@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2012.  Mondora srl, Mondora suisse
+  ~ and individual contributors as indicated by the @authors tag.
+  ~ See the copyright.txt in the distribution for a full listing of individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU Lesser General Public License as published by the Free Software Foundation; either
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+  ~ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ~ See the GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License along with this
+  ~ software; if not see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="charge" class="com.mondora.chargifyService.controller.ChargifyAdapter">
+        <constructor-arg>
+            <description>key</description>
+            <value>1m492Wqz3DXRgEKEcMT6</value>
+        </constructor-arg>
+        <constructor-arg>
+            <description>domain</description>
+            <value>beta-sensiblecloud</value>
+        </constructor-arg>
+    </bean>
+
+    <!--<bean id="production" class="com.mondora.chargifyService.controller.ChargifyAdapterAdapter">-->
+        <!--<constructor-arg>-->
+            <!--<description>key</description>-->
+            <!--<value>vsjxnZXDSXWT5KrGlO4Y</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg>-->
+            <!--<description>domain</description>-->
+            <!--<value>controlmycloud</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <bean id="chargifyService" class="com.mondora.chargify.ChargifyService">
+        <property name="chargifyService">
+            <ref bean="charge"/>
+        </property>
+    </bean>
+
+</beans>
